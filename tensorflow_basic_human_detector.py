@@ -68,13 +68,15 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output', help='Output video name (without extension)', required=True)
     args = vars(parser.parse_args())
 
-
     model_path = args['mode_path']
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.7
     cap = cv2.VideoCapture(args['video'])
 
-    writer = cv2.VideoWriter("{name}.avi".format(name=args['output']), cv2.VideoWriter_fourcc(*'MJPG'), 10, (3840, 2160))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+
+    writer = cv2.VideoWriter("{name}.mp4".format(name=args['output']), fourcc, fps, (3840, 2160))
 
     while True:
         r, img = cap.read()
