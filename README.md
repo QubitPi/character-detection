@@ -34,10 +34,7 @@ Modern approaches for Human Detection
 2. Download
    [faster_rcnn_inception_v2_coco.tar.gz](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz)
    from Tensorflow Detection Model Zoo. Extract the downloaded file. If remote download is not available, here is the
-   [local alternative](./faster_rcnn_inception_v2_coco_2018_01_28.tar.gz) that has been downloaded from there. Place
-   the extracted directory at "tensorflow_basic_human_detector.py/.."
-3. Run `python3 tensorflow_basic_human_detector.py` and observe the output on screen. (Press 'Q' to exit). May adjust
-   the threshold parameter to improve the results.
-   - Video being analyzed should be placed in the same directory
-   - Analysis result will be written to "out.avi" in the same directory
+   [local alternative](./faster_rcnn_inception_v2_coco_2018_01_28.tar.gz) that has been downloaded from there.
+3. `python3 tensorflow_basic_human_detector.py -m path/to/faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb -v test.mp4 -o out`
+   and observe the output on screen. (Press 'Q' to exit). May adjust the threshold parameter to improve the results.
    

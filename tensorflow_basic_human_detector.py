@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 import tensorflow as tf
 import cv2
@@ -56,13 +57,24 @@ class DetectorAPI:
         self.default_graph.close()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Human Detection')
+    parser.add_argument(
+        '-m',
+        '--mode_path',
+        help='Detection model (http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz)',
+        required=True
+    )
+    parser.add_argument('-v', '--video', help='Raw video path', required=True)
+    parser.add_argument('-o', '--output', help='Output video name (without extension)', required=True)
+    args = vars(parser.parse_args())
 
-    model_path = '../faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb'
+
+    model_path = args['mode_path']
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.7
-    cap = cv2.VideoCapture('./video.mp4')
+    cap = cv2.VideoCapture(args['video'])
 
-    writer = cv2.VideoWriter("out.avi", cv2.VideoWriter_fourcc(*'MJPG'), 10, (3840, 2160))
+    writer = cv2.VideoWriter("{name}.avi".format(name=args['output']), cv2.VideoWriter_fourcc(*'MJPG'), 10, (3840, 2160))
 
     while True:
         r, img = cap.read()
